@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  employee: one
+  work_type: MyString
+  login_at: 2026-01-11 22:58:44
+  logout_at: 2026-01-11 22:58:44
+  remarks: MyText
+  activity_date: 2026-01-11
+
+two:
+  user: two
+  employee: two
+  work_type: MyString
+  login_at: 2026-01-11 22:58:44
+  logout_at: 2026-01-11 22:58:44
+  remarks: MyText
+  activity_date: 2026-01-11

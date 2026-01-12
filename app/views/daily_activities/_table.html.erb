@@ -1,0 +1,22 @@
+<table class="table table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Employee</th>
+      <th>Work Type</th>
+      <th>Login</th>
+      <th>Logout</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% daily_activities.each do |a| %>
+      <tr>
+        <td><%= a.employee.name %></td>
+        <td><%= a.work_type.upcase %></td>
+        <td><%= a.login_at&.strftime("%I:%M %p") %></td>
+        <td><%= a.logout_at&.strftime("%I:%M %p") %></td>
+        <td><%= a.remarks || "-" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

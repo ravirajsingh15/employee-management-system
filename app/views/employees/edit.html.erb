@@ -1,0 +1,21 @@
+<div class="container" style="max-width:600px;">
+  <h3 class="mb-4 fw-bold">Edit Employee</h3>
+
+  <%= form_with model: @employee, local: true do |f| %>
+
+    <%= f.text_field :name, class:"form-control mb-3", placeholder:"Name" %>
+    <%= f.email_field :email, class:"form-control mb-3", placeholder:"Email" %>
+    <%= f.text_field :phone, class:"form-control mb-3", placeholder:"Phone" %>
+    <%= f.text_field :address, class:"form-control mb-3", placeholder:"Address" %>
+    <%= f.text_field :department, class:"form-control mb-3", placeholder:"Department" %>
+    <%= f.text_field :designation, class:"form-control mb-3", placeholder:"Designation" %>
+    <%= f.date_field :joining_date, class:"form-control mb-3", placeholder:"Joining Date" %>
+    <%= f.text_field :salary, class:"form-control mb-3", placeholder:"Salary" %>
+    <%= f.select :work_type,
+          ["wfo", "wfh", "hybrid", "no-working"],
+          {}, class:"form-select mb-3" %>
+
+    <%= f.submit "Update Employee", class:"btn btn-primary w-100" %>
+
+  <% end %>
+</div>

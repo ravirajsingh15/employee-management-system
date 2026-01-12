@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: employee_user
+  password: ravi123
+  host: localhost
+
+development:
+  <<: *default
+  database: employee_management_development
+
+test:
+  <<: *default
+  database: employee_management_test

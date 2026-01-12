@@ -1,0 +1,186 @@
+<div class="container-fluid">
+  <h2 class="mb-4 fw-bold">Dashboard</h2>
+
+  <!-- ================= WORK DISTRIBUTION (TOP) ================= -->
+  <div class="row mb-5">
+    <div class="col-lg-12">
+      <div class="card dashboard-card1 p-4">
+        <h5 class="fw-bold mb-4">Work Distribution</h5>
+        <div class="row align-items-center">
+          <div class="col-md-4 text-center">
+            <canvas id="workSummaryChart" width="100" height="100"></canvas>
+          </div>
+
+          <div class="col-md-8">
+            <div class="d-flex align-items-center mb-3 fs-5">
+              <span class="legend-dot bg-info"></span>
+              <span class="ms-2">Work from Home</span>
+              <span class="ms-auto fw-bold"><%= @total_wfh %></span>
+            </div>
+
+            <div class="d-flex align-items-center mb-3 fs-5">
+              <span class="legend-dot bg-warning"></span>
+              <span class="ms-2">Work from Office</span>
+              <span class="ms-auto fw-bold"><%= @total_wfo %></span>
+            </div>
+
+            <div class="d-flex align-items-center fs-5">
+              <span class="legend-dot bg-danger"></span>
+              <span class="ms-2">No Working</span>
+              <span class="ms-auto fw-bold"><%= @total_noworking %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STAT CARDS ================= -->
+  <div class="row g-4">
+
+    <!-- CARD 2 -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card dashboard-card text-center p-4">
+        <h6>Total Employees</h6>
+        <div class="chart-wrapper">
+          <canvas id="totalEmployeesTodayChart"></canvas>
+          <div class="chart-center"><%= @total_employees %></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 (Niche Shifted) -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card dashboard-card text-center p-4">
+        <h6>Work From Office</h6>
+        <div class="chart-wrapper">
+          <canvas id="wfoChart"></canvas>
+          <div class="chart-center"><%= @total_wfo %></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 (Niche Shifted) -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card dashboard-card text-center p-4">
+        <h6>Work From Home</h6>
+        <div class="chart-wrapper">
+          <canvas id="wfhChart"></canvas>
+          <div class="chart-center"><%= @total_wfh %></div>
+        </div>
+      </div>
+    </div>
+
+     <div class="col-md-3 col-sm-6">
+      <div class="card dashboard-card text-center p-4">
+        <h6>Non Working</h6>
+        <div class="chart-wrapper">
+          <canvas id="noworkingChart"></canvas>
+          <div class="chart-center"><%= @total_noworking %></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= CSS ================= -->
+<style>
+.dashboard-card {
+  border-radius: 20px;
+  background: linear-gradient(145deg, #ffffff, #ececec);
+  box-shadow: 8px 8px 20px #cfcfcf, -8px -8px 20px #ffffff;
+}
+
+/* .total-workcount {
+  display: flex;
+  justfy-content: center;
+  background-color: red;
+} */
+
+.dashboard-card1 {
+  border-radius: 20px;
+  background: linear-gradient(145deg, #ffffff, #ececec);
+  box-shadow: 8px 8px 20px #cfcfcf, -8px -8px 20px #ffffff;
+  width: 50% !important;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: auto;
+}
+
+.chart-wrapper canvas {
+  width: 130px !important;
+  height: 130px !important;
+}
+
+.chart-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+</style>
+
+<!-- ================= JS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  function donut(id, value, color) {
+    new Chart(document.getElementById(id), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [value, Math.max(1, 100 - value)],
+          backgroundColor: [color, '#e9ecef'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '75%',
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  donut('totalSignupsChart', <%= @total_signups %>, '#0d6efd');
+  donut('totalEmployeesTodayChart', <%= @total_employees %>, '#198754');
+  donut('wfoChart', <%= @total_wfo %>, '#ffc107');
+  donut('wfhChart', <%= @total_wfh %>, '#0dcaf0');
+  donut('noworkingChart', <%= @total_noworking %>, "#dc3545");
+
+  new Chart(document.getElementById("workSummaryChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["WFH", "WFO", "No Working"],
+      datasets: [{
+        data: [
+          <%= @total_wfh %>,
+          <%= @total_wfo %>,
+          <%= @total_noworking %>
+        ],
+        backgroundColor: ["#0dcaf0", "#ffc107", "#dc3545"],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      cutout: "70%",
+      plugins: { legend: { display: false } }
+    }
+  });
+
+});
+</script>

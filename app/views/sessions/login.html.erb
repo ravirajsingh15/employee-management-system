@@ -1,0 +1,104 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="card shadow-lg border-0 rounded-4 position-relative" style="max-width:420px; width:100%;">
+
+    <!-- ❌ CLOSE BUTTON -->
+    <%= link_to "✕", root_path,
+          class: "position-absolute top-0 end-0 m-3 text-muted text-decoration-none fs-5" %>
+
+    <div class="card-body p-4">
+      <h3 class="text-center fw-bold mb-2">Welcome Back</h3>
+      <p class="text-center text-muted mb-4">Login to Employee Track</p>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-danger text-center">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <!-- 🔵 LOGIN FORM -->
+      <%= form_with url: login_path, local: true do %>
+
+        <div class="mb-3 position-relative">
+          <label class="form-label fw-semibold">Email</label>
+          <%= email_field_tag :email, nil,
+                class: "form-control form-control-lg",
+                placeholder: "Enter your working email",
+                required: true,
+                autocomplete: "email" %>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 position-relative">
+          <label class="form-label fw-semibold">Password</label>
+          <%= password_field_tag :password, nil,
+                class: "form-control form-control-lg",
+                placeholder: "Enter your password",
+                required: true,
+                autocomplete: "current-password",
+                id: "password" %>
+          <span class="position-absolute top-50 end-3 translate-middle-y" style="cursor:pointer;" onclick="togglePassword('password', this)">
+            <i class="fa fa-eye"></i>
+          </span>
+        </div>
+
+        <!-- Password Confirmation -->
+        <div class="mb-3 position-relative">
+          <label class="form-label fw-semibold">Confirm Password</label>
+          <%= password_field_tag :password_confirmation, nil,
+                class: "form-control form-control-lg",
+                placeholder: "Confirm your password",
+                required: true,
+                id: "password_confirmation" %>
+          <span class="position-absolute top-50 end-3 translate-middle-y" style="cursor:pointer;" onclick="togglePassword('password_confirmation', this)">
+            <i class="fa fa-eye"></i>
+          </span>
+        </div>
+
+        <%= submit_tag "Login",
+              class: "btn btn-primary w-100 py-2 fw-semibold mb-3" %>
+      <% end %>
+
+      <!-- OR DIVIDER -->
+      <div class="text-center text-muted my-3">or</div>
+
+      <!-- 🌐 SOCIAL LOGIN (UI ONLY) -->
+      <%
+=begin%>
+ <div class="d-grid gap-2">
+        <button class="btn btn-outline-danger d-flex align-items-center justify-content-center gap-2">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">
+          Continue with Google
+        </button>
+
+        <button class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2">
+          <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" width="18">
+          Continue with Facebook
+        </button>
+      </div> 
+<%
+=end%>
+
+      <p class="text-center mt-4 mb-0">
+        New here?
+        <%= link_to "Create an account", signup_path, class: "fw-semibold" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 🔑 Password Toggle JS -->
+<script>
+  function togglePassword(fieldId, el) {
+    const input = document.getElementById(fieldId);
+    const icon = el.querySelector('i');
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      input.type = "password";
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
+  }
+</script>

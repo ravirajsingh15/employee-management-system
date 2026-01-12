@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <h3 class="fw-bold mb-3">Report Result</h3>
+
+  <!-- SUMMARY -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <h6>Total Employees</h6>
+        <h3 class="fw-bold"><%= Employee.all.count %></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <h6>WFH</h6>
+        <h3 class="fw-bold"><%= Employee.all.where(work_type: "wfh").count %></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <h6>WFO</h6>
+        <h3 class="fw-bold"><%= Employee.all.where(work_type: "wfo").count %></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <h6>No Working</h6>
+        <h3 class="fw-bold"><%= Employee.all.where(work_type: "no-working").count %></h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card p-4 shadow-sm rounded-4">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Work Type</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Joining Date</th>
+          <th>Salary</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% Employee.all.each do |e| %>
+          <tr>
+            <td><%= e.name %></td>
+            <td><%= e.email %></td>
+            <td><%= e.phone %></td>
+            <td><%= e.address %></td>
+            <td><%= e.work_type %></td>
+            <td><%= e.department %></td>
+            <td><%= e.designation %></td>
+            <td><%= e.joining_date %></td>
+            <td><%= e.salary %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

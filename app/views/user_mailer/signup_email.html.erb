@@ -1,0 +1,186 @@
+Subject: Welcome to Employee Track System 🚀
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+    }
+
+```
+.wrapper {
+  max-width: 600px;
+  margin: 30px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  padding: 28px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 140px;
+  margin-bottom: 12px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+/* Content */
+.content {
+  padding: 28px;
+  color: #1f2937;
+}
+
+.content h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.content p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 14px 0;
+}
+
+/* Button */
+.cta-wrapper {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.cta-btn {
+  background: #4f46e5;
+  color: #ffffff !important;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Footer */
+.footer {
+  background: #f9fafb;
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.social-links a {
+  margin: 0 8px;
+  text-decoration: none;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* 🌙 Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #111827;
+  }
+  .wrapper {
+    background: #1f2937;
+  }
+  .content {
+    color: #e5e7eb;
+  }
+  .footer {
+    background: #111827;
+    color: #9ca3af;
+  }
+}
+
+/* 📱 Mobile */
+@media screen and (max-width: 480px) {
+  .content {
+    padding: 20px;
+  }
+  .cta-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+```
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+
+```
+<!-- Header -->
+<div class="header">
+  <%
+=begin%>
+ <img src="<%= image_url('logo.png') %>" alt="Company Logo" class="logo" /> 
+<%
+=end%>
+  <h1>Employee Track System</h1>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <h2>Hello <%= @user.name %> 👋</h2>
+
+  <p>
+    Welcome to <strong>Employee Track System</strong>!  
+    Your account has been successfully created and you’re all set to begin.
+  </p>
+
+  <p>
+    Manage employees, track performance, and simplify daily operations —
+    all from one powerful dashboard.
+  </p>
+
+  <div class="cta-wrapper">
+      <a href="<%= dashboard_url %>" class="cta-btn">
+        Go to Dashboard
+      </a>
+  </div>
+
+  <p>
+    Need help? Just reply to this email — our support team is always here for you 😊
+  </p>
+
+  <p>
+    Regards,<br>
+    <strong>Employee Track Team</strong>
+  </p>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="social-links">
+    <a href="https://linkedin.com">LinkedIn</a> |
+    <a href="https://twitter.com">Twitter</a> |
+    <a href="https://github.com">GitHub</a>
+  </div>
+  <p style="margin-top:10px;">
+    © <%= Time.current.year %> Employee Track System
+  </p>
+</div>
+```
+
+  </div>
+</body>
+</html>

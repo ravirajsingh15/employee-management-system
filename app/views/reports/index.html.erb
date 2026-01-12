@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <h3 class="fw-bold mb-4">Generate Report</h3>
+
+  <!-- FILTER FORM -->
+  <div class="card p-4 shadow-sm rounded-4 mb-4">
+    <%= form_with model: @report, url: reports_path(@report), method: :post, local: true do |f| %>
+
+      <div class="row g-3">
+        <div class="col-md-3">
+          <%= f.label :from_date, class: "form-label fw-semibold" %>
+          <%= f.date_field :from_date, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3">
+          <%= f.label :to_date, class: "form-label fw-semibold" %>
+          <%= f.date_field :to_date, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3">
+          <%= f.label :work_type, class: "form-label fw-semibold" %>
+          <%= f.select :work_type,
+                [["All", ""], ["WFO", "wfo"], ["WFH", "wfh"], ["No Working", "no-working"]],
+                {}, class: "form-select" %>
+        </div>
+
+        <div class="col-md-3">
+          <%= f.label :department, class: "form-label fw-semibold" %>
+          <%= f.text_field :department, placeholder: "HR, IT, Sales",
+                class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end">
+        <%= f.submit "Generate Report", class: "btn btn-primary px-4" %>
+      </div>
+
+    <% end %>
+  </div>
+
+  <!-- REPORT HISTORY -->
+  <div class="card p-4 shadow-sm rounded-4">
+    <h5 class="fw-bold mb-3">Report History</h5>
+
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Id</th>
+          <th>Date Range</th>
+          <th>Work Type</th>
+          <th>Department</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @reports.each_with_index do |r, i| %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td>
+              <%= r.from_date.strftime("%d %b %Y") %> → 
+              <%= r.to_date.strftime("%d %b %Y") %>
+            </td>
+            <td><%= r.work_type.presence || "All" %></td>
+            <td><%= r.department.presence || "All" %></td>
+            <td>
+              <%= link_to "View", report_path(r),
+                    class: "btn btn-sm btn-outline-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

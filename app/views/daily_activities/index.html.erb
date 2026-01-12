@@ -1,0 +1,190 @@
+<h3 class="fw-bold mb-4">Today's Employee Activity</h3>
+
+<!-- ================= FILTER ================= -->
+<form method="get" class="row g-3 mb-4 align-items-end">
+  <div class="col-md-3">
+    <label class="form-label fw-semibold">Select Date</label>
+    <input type="date"
+           name="date"
+           value="<%= params[:date] || Date.today %>"
+           class="form-control">
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label fw-semibold">Work Type</label>
+    <select name="work_type" class="form-select">
+      <option value="">All</option>
+      <option value="wfh" <%= 'selected' if params[:work_type]=='wfh' %>>WFH</option>
+      <option value="wfo" <%= 'selected' if params[:work_type]=='wfo' %>>WFO</option>
+      <option value="no-working" <%= 'selected' if params[:work_type]=='no-working' %>>No Working</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-primary w-100">Apply</button>
+  </div>
+
+  <div class="col-md-2 exportdata">
+   <%= link_to "Export CSV",
+      export_csv_daily_activities_path(
+        activity_date: params[:activity_date]
+      ),
+      class: "btn btn-success mt-3"
+    %>
+  </div>
+
+</form>
+
+<hr>
+<!-- ================= STAT CARDS ================= -->
+<div class="row g-4">
+
+  <div class="col-md-3">
+    <div class="card dashboard-card text-center p-4">
+      <h6>Total Employee</h6>
+      <div class="chart-wrapper">
+        <canvas id="totalEmplChart"></canvas>
+        <div class="chart-center"><%= @total_employees_count %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card dashboard-card text-center p-4">
+      <h6>WFO</h6>
+      <div class="chart-wrapper">
+        <canvas id="wfoChart"></canvas>
+        <div class="chart-center"><%= @total_wfo%></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card dashboard-card text-center p-4">
+      <h6>WFH</h6>
+      <div class="chart-wrapper">
+        <canvas id="wfhChart"></canvas>
+        <div class="chart-center"><%= @total_wfh %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card dashboard-card text-center p-4">
+      <h6>No Working</h6>
+      <div class="chart-wrapper">
+        <canvas id="noworkingChart"></canvas>
+        <div class="chart-center"><%= @total_noworking %></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= DETAILS TABLE ================= -->
+<h4 class="fw-bold mt-5 mb-3">Employee Activity Details</h4>
+
+<table class="table table-bordered table-striped align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Sr No</th>
+      <th>Employee Name</th>
+      <th>Work Type</th>
+      <th>Login</th>
+      <th>Logout</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @daily_activities.each_with_index do |activity, index| %>
+      <tr>
+        <td><%= index + 1  %></td>
+        <td><%= activity.employee.name %></td>
+        <td>
+          <span class="badge <%= activity.work_type == 'wfh' ? 'bg-info' : activity.work_type == 'wfo' ? 'bg-success' : 'bg-danger' %>">
+            <%= activity.work_type.upcase %>
+          </span>
+        </td>
+        <td><%= activity.login_at&.strftime("%I:%M %p") || "-" %></td>
+        <td><%= activity.logout_at&.strftime("%I:%M %p") || "-" %></td>
+        <td><%= activity.remarks.presence || "-" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!-- ================= JS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const donut = (id, value, color) => {
+    new Chart(document.getElementById(id), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [value, Math.max(1, <%= @total_employees %> - value)],
+          backgroundColor: [color, '#e9ecef'],
+          borderWidth: 0
+        }]
+      },
+      options: { cutout: '75%', plugins: { legend: { display: false } } }
+    });
+  };
+
+  donut('totalEmplChart', <%= @total_employees_count %>, '#e60bdbec');
+  donut('wfoChart', <%= @total_wfo %>, '#ffc107');
+  donut('wfhChart', <%= @total_wfh %>, '#0dcaf0');
+  donut('noworkingChart', <%= @total_noworking %>, '#dc3545');
+
+  new Chart(document.getElementById("workSummaryChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["WFH", "WFO", "No Working"],
+      datasets: [{
+        data: [<%= @total_employees_count %>, <%= @total_wfh %>, <%= @total_wfo %>, <%= @total_noworking %>],
+        backgroundColor: [ '#e60bdbec', "#0dcaf0", "#ffc107", "#dc3545"],
+        borderWidth: 0
+      }]
+    },
+    options: { cutout: "70%", plugins: { legend: { display: false } } }
+  });
+});
+</script>
+
+<!-- ================= CSS ================= -->
+<style>
+.dashboard-card {
+  border-radius: 20px;
+  background: linear-gradient(145deg, #fff, #ececec);
+  box-shadow: 8px 8px 20px #cfcfcf, -8px -8px 20px #ffffff;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: auto;
+}
+
+.chart-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.exportdata {
+  display: flex;
+  margin-left: 11rem !important;
+}
+</style>
+

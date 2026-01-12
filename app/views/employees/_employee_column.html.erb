@@ -1,0 +1,57 @@
+<%= form_for model: @employee, local: true do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :phone %>
+    <%= f.text_field :phone, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :address %>
+    <%= f.text_area :address, class: "form-control", rows: 2 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :work_type %>
+    <%= f.select :work_type,
+          [["Work From Office", "wfo"], ["Work From Home", "wfh"], ["No Working", "noworking"]],
+          {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :last_active %>
+    <%= f.date_field :last_active, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :department %>
+    <%= f.text_field :department, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :designation %>
+    <%= f.text_field :designation, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :joining_date %>
+    <%= f.date_field :joining_date, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :salary %>
+    <%= f.text_field :salary, class: "form-control" %>
+  </div>
+
+  <%= f.submit class: "btn btn-success w-100" %>
+
+<% end %>
