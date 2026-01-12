@@ -56,10 +56,6 @@ require 'faker'
   )
 end
 
-# Indian-style first names
-indian_names = %w[Rahul Ravi Atul Suresh Ankit Priya Rakesh Neha Amit Deepa]
-
-# Realistic daily activity phrases
 activity_phrases = [
   "completed task on time",
   "delayed due to client meeting",
@@ -73,26 +69,29 @@ activity_phrases = [
   "reviewed team code submissions"
 ]
 
-# Ensure unique employees for today
 employee_ids = Employee.pluck(:id).sample([80, Employee.count].min)
-user_ids = User.pluck(:id)
+user_ids     = User.pluck(:id)
 
 employee_ids.each do |employee_id|
-  DailyActivity.find_or_create_by(employee_id: employee_id, activity_date: Date.today) do |activity|
-    DailyActivity.find(employee_id: employee_id).update(name: :indian_names).sample
-    activity.user_id = user_ids.sample
-    activity.work_type = ["wfh", "wfo", "no-working"].sample
+  DailyActivity.find_or_create_by(
+    employee_id: employee_id,
+    activity_date: Date.today
+  ) do |activity|
 
-    # Generate login/logout times
-    login_time = Faker::Time.backward(days: 1, period: :morning)
+    name = Faker::Name.first_name
+
+    activity.user_id  = user_ids.sample
+    activity.work_type = %w[wfh wfo no-working].sample
+
+    login_time  = Faker::Time.backward(days: 1, period: :morning)
     logout_time = login_time + rand(4..9).hours
 
-    activity.login_at = login_time
+    activity.login_at  = login_time
     activity.logout_at = logout_time
-    phrase = activity_phrases.sample
-    activity.remarks = "#{name} #{phrase}"  # Example: "Rahul completed task on time"
-  end
 
+    phrase = activity_phrases.sample
+    activity.remarks = "#{name} #{phrase}"
+  end
 end
 
 puts "40 fake employees created!"
