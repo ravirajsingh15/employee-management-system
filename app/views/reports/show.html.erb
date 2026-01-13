@@ -4,28 +4,28 @@
   <!-- SUMMARY -->
   <div class="row g-3 mb-4">
     <div class="col-md-3">
-      <div class="card text-center p-3 shadow-sm rounded-4">
+      <div class="card text-center p-3 shadow-sm rounded-4" style='background-color: #198754'>
         <h6>Total Employees</h6>
         <h3 class="fw-bold"><%= Employee.all.count %></h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card text-center p-3 shadow-sm rounded-4">
+      <div class="card text-center p-3 shadow-sm rounded-4" style='background-color: #ffc107'>
         <h6>WFH</h6>
         <h3 class="fw-bold"><%= Employee.all.where(work_type: "wfh").count %></h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card text-center p-3 shadow-sm rounded-4">
+      <div class="card text-center p-3 shadow-sm rounded-4" style='background-color: #0dcaf0'>
         <h6>WFO</h6>
         <h3 class="fw-bold"><%= Employee.all.where(work_type: "wfo").count %></h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card text-center p-3 shadow-sm rounded-4">
+      <div class="card text-center p-3 shadow-sm rounded-4" style='background-color: #dc3545'>
         <h6>No Working</h6>
         <h3 class="fw-bold"><%= Employee.all.where(work_type: "no-working").count %></h3>
       </div>

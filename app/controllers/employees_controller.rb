@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @employee&.destroy
-    redirect_to employees_path, alert: "Employee deleted successfully"
+    redirect_to employees_path, notice: "Employeeeee1 Delete Sucessfully"
   end
 
   def show

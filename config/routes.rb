@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/resume", to: "resumes#show", as: :resume
   patch "/resume", to: "resumes#update"
   delete "/resume", to: "resumes#destroy"
+  delete "/employee", to: "employees#destroy"
   resources :employees
   resources :reports
   resources :demo_bookings, only:[:new, :create, :index]

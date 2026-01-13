@@ -15,7 +15,8 @@ class ResumesController < ApplicationController
     @user  = curret_user
 
     if @user.update(resume_params)
-      redirect_to resume_path, notice: "Resume Uploaded Sucessfully"
+      redirect_to resume_path
+      flash.now[:alert] = "Resume Uploaded Sucessfully"
     else
       flash.now[:error] = @user.errors.full_messages.join(", ")
       render :show

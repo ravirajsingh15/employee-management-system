@@ -1,0 +1,4 @@
+{
+  "buildCommand": "bundle install && bundle exec rails assets:precompile",
+  "outputDirectory": "public"
+}
