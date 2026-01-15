@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_14_212536) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_15_173111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,18 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_14_212536) do
     t.index ["employee_id", "activity_date"], name: "index_daily_activities_on_employee_id_and_activity_date", unique: true
     t.index ["employee_id"], name: "index_daily_activities_on_employee_id"
     t.index ["user_id"], name: "index_daily_activities_on_user_id"
-  end
-
-  create_table "demo_bookings", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "phone"
-    t.string "company"
-    t.date "demo_date"
-    t.text "message"
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "employees", force: :cascade do |t|

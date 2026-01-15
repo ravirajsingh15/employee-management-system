@@ -27,10 +27,9 @@ Rails.application.routes.draw do
   patch '/password/update',  to: 'reset_passwords#update_password', as: 'update_password_reset'
 
   get "/pricing", to: "pricings#pricing", as: :pricing
-
   resources :employees
   resources :reports
-  resources :demo_bookings, only:[:new, :create, :index]
+  # resources :demo_bookings, only:[:new, :create, :index]
   resources :daily_activities, only: [:index, :create, :new] do
     collection do
       get :export_csv

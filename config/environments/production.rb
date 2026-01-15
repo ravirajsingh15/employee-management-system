@@ -91,3 +91,30 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+# ===============================
+# HOST AUTHORIZATION
+# ===============================
+config.hosts << ".onrender.com"
+config.hosts << ".railway.app"
+
+# ===============================
+# SECURITY – MASTER KEY REQUIRED
+# ===============================
+config.require_master_key = true
+
+# ===============================
+# SESSION / CSRF FIX
+# ===============================
+config.session_store :cookie_store,
+  key: "_employee_tracker_session",
+  secure: true,
+  same_site: :lax
+
+# ===============================
+# MAILER (OPTIONAL BUT GOOD)
+# ===============================
+config.action_mailer.default_url_options = {
+  host: "employee_tracker.onrender.com",
+  protocol: "https"
+}
