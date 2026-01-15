@@ -90,13 +90,20 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-end
+
 
 # ===============================
 # HOST AUTHORIZATION
 # ===============================
 config.hosts << ".onrender.com"
 config.hosts << ".railway.app"
+config.action_mailer.default_url_options = {
+  host: "employee_tracker.onrender.com",
+  protocol: "https"
+}
+
+Rails.application.routes.default_url_options[:host] = "employee_tracker.onrender.com"
+Rails.application.routes.default_url_options[:protocol] = "https"
 
 # ===============================
 # SECURITY – MASTER KEY REQUIRED
@@ -114,7 +121,14 @@ config.session_store :cookie_store,
 # ===============================
 # MAILER (OPTIONAL BUT GOOD)
 # ===============================
-config.action_mailer.default_url_options = {
-  host: "employee_tracker.onrender.com",
-  protocol: "https"
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  address: "smtp.gmail.com",
+  port: 587,
+  domain: "employee_tracker.onrender.com",
+  user_name: ENV["SMTP_USERNAME"],
+  password: ENV["SMTP_PASSWORD"],
+  authentication: "plain",
+  enable_starttls_auto: true
 }
+end
