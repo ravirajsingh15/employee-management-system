@@ -1,5 +1,7 @@
 class DailyActivitiesController < ApplicationController
 
+   before_action :authenticate_user!
+   
   require 'csv'
   def index
     # @daily_activities = filtered_activities

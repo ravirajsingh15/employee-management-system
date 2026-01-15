@@ -37,6 +37,7 @@
     <table class="table table-bordered table-hover">
       <thead class="table-dark">
         <tr>
+          <th>Sr No </th>
           <th>Name</th>
           <th>Email</th>
           <th>Phone Number</th>
@@ -50,8 +51,9 @@
       </thead>
 
       <tbody>
-        <% Employee.all.each do |e| %>
+        <% Employee.all.each_with_index do |e, i| %>
           <tr>
+            <td><%= i + 1 %></td>
             <td><%= e.name %></td>
             <td><%= e.email %></td>
             <td><%= e.phone %></td>

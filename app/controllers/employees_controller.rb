@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+   before_action :authenticate_user!
   before_action :set_employee, only: [:edit, :update, :show, :destory]
   def index 
     @employees = Employee.all.order(:name)
@@ -23,7 +24,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @employee&.destroy
-    redirect_to employees_path, notice: "Employeeeee1 Delete Sucessfully"
+    redirect_to employees_path, notice: "Employee Delete Sucessfully"
   end
 
   def show

@@ -1,18 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  
-  helper_method :curret_user, :logged_in?
 
-  def curret_user
-    @curret_user ||= User.find_by(id: session[:user_id])
+  helper_method :current_user, :logged_in?
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
   def authenticate_user!
-    redirect_to login_path unless curret_user
+    unless logged_in?
+      flash[:alert] = "Please login first to access this feature"
+      redirect_to login_path
+    end
   end
 
   def logged_in?
-    curret_user.present?
+    current_user.present?
   end
-
 end

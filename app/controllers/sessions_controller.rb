@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       session[:total_login_count] ||= 0
       session[:total_login_count] += 1
     end
-      redirect_to dashboard_path
+      redirect_to dashboard_path, notice: "Login user sucessfully"
     else
       flash.now[:alert] = "Invalid email or password"
       render :login, status: :unprocessable_entity
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   
   def destroy
     reset_session
-    redirect_to login_path, notice: "Logged out Successfully"
+    redirect_to login_path, alert: "Logged out Successfully"
   end
 
 end
