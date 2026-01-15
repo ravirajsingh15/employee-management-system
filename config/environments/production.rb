@@ -52,6 +52,7 @@ Rails.application.configure do
   # ACTIVE RECORD
   # ===============================
   config.active_record.dump_schema_after_migration = false
+  config.action_controller.forgery_protection_origin_check = true
 
   # ===============================
   # HOST AUTHORIZATION
