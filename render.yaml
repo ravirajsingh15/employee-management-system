@@ -6,6 +6,6 @@ services:
 
     buildCommand: bundle install && bundle exec rake assets:precompile
 
-    releaseCommand: bundle exec rails db:migrate
+    releaseCommand: bundle exec rails db:prepare
 
     startCommand: bundle exec puma -C config/puma.rb
