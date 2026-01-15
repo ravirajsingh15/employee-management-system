@@ -1,12 +1,9 @@
 services:
   - type: web
-    name: employee-management-system-2
+    name: employee-management-system
     env: ruby
     plan: free
 
     buildCommand: bundle install && bundle exec rake assets:precompile
-
-    releaseCommand: >
-      bundle exec rails db:drop db:create db:migrate
-
+    releaseCommand: bundle exec rails db:prepare
     startCommand: bundle exec puma -C config/puma.rb
