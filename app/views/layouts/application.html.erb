@@ -315,7 +315,7 @@
         <li><%= link_to "Activity", daily_activities_path, class: "nav-link" %></li>
         <li><%= link_to "Pricing", pricing_path, class: "nav-link price-link" %></li>
         <li><%= link_to "Book Demo", class: "btn btn-demo btn-sm"%></li>
-        <li><%= button_to "Start Free Trial", class: "btn btn-trial btn-sm" %></li>
+        <li><%= button_to "Start Free Trial", "#", class: "btn btn-trial btn-sm" %></li>
 
         <% if logged_in? %>
           <li><%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-primary btn-sm" %></li>

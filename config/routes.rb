@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   post "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   get "/dashboard", to: "dashboard#index"
-  get "employees", to: "employees#index", as: "employees"
   get "/resume", to: "resumes#show", as: :resume
   patch "/resume", to: "resumes#update"
   delete "/resume", to: "resumes#destroy"

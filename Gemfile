@@ -6,7 +6,7 @@ ruby "3.2.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.10"
 gem "railties", "~> 7.0.10"
-
+gem 'kaminari'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

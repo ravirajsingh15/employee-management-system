@@ -1,21 +1,94 @@
-<div class="container" style="max-width:600px;">
-  <h3 class="mb-4 fw-bold">Edit Employee</h3>
+<div class="container mt-5" style="max-width: 720px;">
+  <div class="card border-0 shadow-lg rounded-4">
 
-  <%= form_with model: @employee, local: true do |f| %>
+    <!-- HEADER -->
+    <div class="card-header bg-primary text-white text-center rounded-top-4">
+      <h4 class="mb-0 fw-bold">✏️ Edit Employee</h4>
+      <small class="opacity-75">Update employee information carefully</small>
+    </div>
 
-    <%= f.text_field :name, class:"form-control mb-3", placeholder:"Name" %>
-    <%= f.email_field :email, class:"form-control mb-3", placeholder:"Email" %>
-    <%= f.text_field :phone, class:"form-control mb-3", placeholder:"Phone" %>
-    <%= f.text_field :address, class:"form-control mb-3", placeholder:"Address" %>
-    <%= f.text_field :department, class:"form-control mb-3", placeholder:"Department" %>
-    <%= f.text_field :designation, class:"form-control mb-3", placeholder:"Designation" %>
-    <%= f.date_field :joining_date, class:"form-control mb-3", placeholder:"Joining Date" %>
-    <%= f.text_field :salary, class:"form-control mb-3", placeholder:"Salary" %>
-    <%= f.select :work_type,
-          ["wfo", "wfh", "hybrid", "no-working"],
-          {}, class:"form-select mb-3" %>
+    <!-- BODY -->
+    <div class="card-body p-4">
 
-    <%= f.submit "Update Employee", class:"btn btn-primary w-100" %>
+      <%= form_with model: @employee, local: true do |f| %>
 
-  <% end %>
+        <!-- BASIC INFO -->
+        <h6 class="text-muted fw-semibold mb-3">Basic Information</h6>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <%= f.label :name, class: "form-label fw-semibold" %>
+            <%= f.text_field :name, class: "form-control", placeholder: "Full name" %>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <%= f.label :email, class: "form-label fw-semibold" %>
+            <%= f.email_field :email, class: "form-control", placeholder: "Email address" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <%= f.label :phone, class: "form-label fw-semibold" %>
+            <%= f.text_field :phone, class: "form-control", placeholder: "Phone number" %>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <%= f.label :address, class: "form-label fw-semibold" %>
+            <%= f.text_field :address, class: "form-control", placeholder: "Address" %>
+          </div>
+        </div>
+
+        <!-- WORK INFO -->
+        <hr class="my-4">
+        <h6 class="text-muted fw-semibold mb-3">Work Details</h6>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <%= f.label :department, class: "form-label fw-semibold" %>
+            <%= f.text_field :department, class: "form-control", placeholder: "Department" %>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <%= f.label :designation, class: "form-label fw-semibold" %>
+            <%= f.text_field :designation, class: "form-control", placeholder: "Designation" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <%= f.label :joining_date, class: "form-label fw-semibold" %>
+            <%= f.date_field :joining_date, class: "form-control" %>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <%= f.label :salary, class: "form-label fw-semibold" %>
+            <%= f.number_field :salary, class: "form-control", placeholder: "Salary" %>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :work_type, class: "form-label fw-semibold" %>
+          <%= f.select :work_type,
+                [["Work From Office", "wfo"],
+                 ["Work From Home", "wfh"],
+                 ["Hybrid", "hybrid"],
+                 ["No Working", "no-working"]],
+                { prompt: "Select work type" },
+                class: "form-select" %>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="d-flex gap-2 mt-4">
+          <%= link_to employees_path, class: "btn btn-outline-secondary w-50" do %>
+            ⬅ Back
+          <% end %>
+
+          <%= f.submit "Update Employee", class: "btn btn-primary w-50 fw-semibold" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
 </div>

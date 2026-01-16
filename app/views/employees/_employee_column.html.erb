@@ -1,57 +1,222 @@
-<%= form_for model: @employee, local: true do |f| %>
+<style>
+/* ===== CARD ===== */
+.employee-card {
+  max-width: 900px;
+  margin: auto;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.08);
+  border: none;
+}
 
-  <div class="mb-3">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control", required: true %>
+.employee-card .card-header {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border-radius: 18px 18px 0 0;
+  padding: 22px 30px;
+}
+
+/* ===== STEPS ===== */
+.step {
+  display: none;
+}
+.step.active {
+  display: block;
+}
+
+/* ===== FLOATING INPUT WITH ICON ===== */
+.input-group-text {
+  background: transparent;
+  border-right: 0;
+}
+
+.form-floating > .form-control,
+.form-floating > .form-select {
+  padding-left: 48px;
+}
+
+.form-floating label {
+  padding-left: 48px;
+}
+
+.icon-input {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #6b7280;
+  z-index: 4;
+}
+
+/* ===== BUTTONS ===== */
+.btn-next {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border: none;
+}
+.btn-back {
+  background: #e5e7eb;
+}
+</style>
+
+<div class="card employee-card mt-4">
+  <div class="card-header">
+    <h4 class="mb-1">👤 New Employee</h4>
+    <small>Step-by-step employee creation</small>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control", required: true %>
+  <div class="card-body p-4">
+    <%= form_for @employee, local: true do |f| %>
+
+      <% if @employee.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @employee.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- ================= STEP 1 ================= -->
+      <div class="step active">
+        <h5 class="mb-3">📌 Basic Details</h5>
+
+        <div class="row g-3">
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-person icon-input"></i>
+            <div class="form-floating">
+              <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+              <label>Name</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-envelope icon-input"></i>
+            <div class="form-floating">
+              <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+              <label>Email</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-telephone icon-input"></i>
+            <div class="form-floating">
+              <%= f.text_field :phone, class: "form-control", placeholder: "Phone" %>
+              <label>Phone</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-house icon-input"></i>
+            <div class="form-floating">
+              <%= f.text_area :address, class: "form-control", placeholder: "Address" %>
+              <label>Address</label>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-next mt-4 w-100" onclick="nextStep()">Next →</button>
+      </div>
+
+      <!-- ================= STEP 2 ================= -->
+      <div class="step">
+        <h5 class="mb-3">💼 Work Information</h5>
+
+        <div class="row g-3">
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-briefcase icon-input"></i>
+            <div class="form-floating">
+              <%= f.select :work_type,
+                [["Work From Office", "wfo"], ["Work From Home", "wfh"], ["No Working", "noworking"]],
+                { prompt: "Select work type" },
+                class: "form-select" %>
+              <label>Work Type</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-building icon-input"></i>
+            <div class="form-floating">
+              <%= f.text_field :department, class: "form-control", placeholder: "Department" %>
+              <label>Department</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-award icon-input"></i>
+            <div class="form-floating">
+              <%= f.text_field :designation, class: "form-control", placeholder: "Designation" %>
+              <label>Designation</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-currency-rupee icon-input"></i>
+            <div class="form-floating">
+              <%= f.number_field :salary, class: "form-control", placeholder: "Salary" %>
+              <label>Salary</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="button" class="btn btn-back w-50" onclick="prevStep()">← Back</button>
+          <button type="button" class="btn btn-next w-50" onclick="nextStep()">Next →</button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 3 ================= -->
+      <div class="step">
+        <h5 class="mb-3">📅 Dates</h5>
+
+        <div class="row g-3">
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-calendar-event icon-input"></i>
+            <div class="form-floating">
+              <%= f.date_field :joining_date, class: "form-control" %>
+              <label>Joining Date</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 position-relative">
+            <i class="bi bi-clock-history icon-input"></i>
+            <div class="form-floating">
+              <%= f.date_field :last_active, class: "form-control" %>
+              <label>Last Active</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="button" class="btn btn-back w-50" onclick="prevStep()">← Back</button>
+          <%= f.submit "Create Employee", class: "btn btn-next w-50" %>
+        </div>
+      </div>
+
+    <% end %>
   </div>
+</div>
 
-  <div class="mb-3">
-    <%= f.label :phone %>
-    <%= f.text_field :phone, class: "form-control" %>
-  </div>
+<script>
+let currentStep = 0;
+const steps = document.querySelectorAll(".step");
 
-  <div class="mb-3">
-    <%= f.label :address %>
-    <%= f.text_area :address, class: "form-control", rows: 2 %>
-  </div>
+function showStep(index) {
+  steps.forEach((step, i) => {
+    step.classList.toggle("active", i === index);
+  });
+}
 
-  <div class="mb-3">
-    <%= f.label :work_type %>
-    <%= f.select :work_type,
-          [["Work From Office", "wfo"], ["Work From Home", "wfh"], ["No Working", "noworking"]],
-          {}, class: "form-select" %>
-  </div>
+function nextStep() {
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    showStep(currentStep);
+  }
+}
 
-  <div class="mb-3">
-    <%= f.label :last_active %>
-    <%= f.date_field :last_active, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :department %>
-    <%= f.text_field :department, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :designation %>
-    <%= f.text_field :designation, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :joining_date %>
-    <%= f.date_field :joining_date, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :salary %>
-    <%= f.text_field :salary, class: "form-control" %>
-  </div>
-
-  <%= f.submit class: "btn btn-success w-100" %>
-
-<% end %>
+function prevStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+</script>
