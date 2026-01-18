@@ -1,0 +1,176 @@
+<li class="nav-item feature-dropdown">
+  <a href="#" class="nav-link price-link feature-toggle">
+    Features <i class="bi bi-chevron-down ms-1 btn-prrimary"></i>
+  </a>
+
+  <div class="feature-menu">
+
+    <div class="feature-header">
+      <h6>Core Features</h6>
+      <span>Everything you need to manage your team</span>
+    </div>
+
+    <a href="<%= dashboard_path %>" class="feature-card">
+      <div class="icon bg-primary">
+        <i class="bi bi-speedometer2"></i>
+      </div>
+      <div>
+        <h6>Dashboard <span class="badge">NEW</span></h6>
+        <p>Live productivity overview</p>
+      </div>
+    </a>
+
+    <a href="<%= employees_path %>" class="feature-card">
+      <div class="icon bg-success">
+        <i class="bi bi-people"></i>
+      </div>
+      <div>
+        <h6>Employees</h6>
+        <p>Manage employees & roles</p>
+      </div>
+    </a>
+
+    <a href="<%= reports_path %>" class="feature-card">
+      <div class="icon bg-warning">
+        <i class="bi bi-bar-chart"></i>
+      </div>
+      <div>
+        <h6>Reports <span class="badge pro">PRO</span></h6>
+        <p>Detailed work analytics</p>
+      </div>
+    </a>
+
+    <a href="<%= daily_activities_path %>" class="feature-card">
+      <div class="icon bg-info">
+        <i class="bi bi-clock-history"></i>
+      </div>
+      <div>
+        <h6>Daily Activity</h6>
+        <p>Track daily work logs</p>
+      </div>
+    </a>
+
+  </div>
+</li>
+
+<<style>
+/* ===== PREMIUM FEATURE MENU ===== */
+.feature-dropdown { position: relative; }
+
+.feature-menu {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 560px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 40px 80px rgba(0,0,0,.18);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s ease;
+  z-index: 999;
+}
+
+/* Header */
+.feature-header {
+  grid-column: span 2;
+  margin-bottom: 10px;
+}
+
+.feature-header h6 {
+  font-weight: 800;
+  margin: 0;
+}
+
+.feature-header span {
+  font-size: .8rem;
+  color: #64748b;
+}
+
+/* Layout */
+.feature-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.feature-dropdown:hover .feature-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Cards */
+.feature-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  transition: all .25s ease;
+}
+
+.feature-card:hover {
+  background: #ffffff;
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+/* Icon */
+.feature-card .icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+}
+
+.bg-primary { background: linear-gradient(135deg,#2563eb,#60a5fa); }
+.bg-success { background: linear-gradient(135deg,#22c55e,#4ade80); }
+.bg-warning { background: linear-gradient(135deg,#f97316,#fb923c); }
+.bg-info { background: linear-gradient(135deg,#06b6d4,#22d3ee); }
+
+.feature-card h6 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.feature-card p {
+  margin: 4px 0 0;
+  font-size: .78rem;
+  color: #64748b;
+}
+
+/* Badges */
+.badge {
+  font-size: .6rem;
+  background: #22c55e;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.badge.pro {
+  background: #f97316;
+}
+
+</style>>
+
+<<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector(".feature-toggle");
+  const menu = document.querySelector(".feature-menu");
+
+  toggle?.addEventListener("click", e => {
+    e.preventDefault();
+    menu.classList.toggle("show-menu");
+  });
+});
+
+</script>>
